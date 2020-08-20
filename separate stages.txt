@@ -30,11 +30,18 @@ stage("package") {
                 sh "mvn package"
             }
         }
+stage('docker_Build') {
+      steps {
+          sh "docker build -t narendra311777/jenkine-pipeline-maven-demo:${BUILD_NUMBER} ."
+      }
+    }
+stage('publish_image') {
+     steps {
+         withDockerRegistry([credentialsId: 'docker_hub', url: 'https://registry.hub.docker.com']) {
+          sh "sudo docker push docker.io/narendra311777/jenkine-pipeline-maven-demo:${BUILD_NUMBER}"
+        }
+      }
+    } 
     }
 
-  // post {
-    //#    always {
-    //  #      cleanWs()
-    //#    }
-   //# }
 }
