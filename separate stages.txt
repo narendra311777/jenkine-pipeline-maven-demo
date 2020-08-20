@@ -38,10 +38,9 @@ stage('docker_Build') {
 stage('publish_image') {
      steps {
          withDockerRegistry([credentialsId: 'docker_hub', url: 'https://registry.hub.docker.com']) {
-          sh "sudo docker push docker.io/narendra311777/jenkine-pipeline-maven-demo:${BUILD_NUMBER}"
+          sh "docker push docker.io/narendra311777/jenkine-pipeline-maven-demo:${BUILD_NUMBER}"
         }
       }
     } 
     }
-
-}
+    }
